@@ -7,4 +7,4 @@ const ping = async (message) => {
     return;
 }
 
-modules.exports = { ping: ping };
+module.exports = { ping: ping };
