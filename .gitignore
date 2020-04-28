@@ -1,0 +1,7 @@
+node_modules/*
+App/AdminApp/node_modules/*
+App/WebApp/node_modules/*
+node_modules/*
+App/SQL/*
+App/manifest.json
+App/WebApp/build/*

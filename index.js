@@ -2,7 +2,10 @@ const discord = require ("discord.js");
 const axios = require("axios");
 const fs = require("fs");
 
-const embeds = require("./embeds");
+
+const ping = require("./commands/ping");
+const clear = require("./commands/clear");
+const github = require('./commands/github');
 
 const client = new discord.Client();
 
@@ -29,44 +32,32 @@ client.on("message", async (message) => {
     if(message.author.bot) return; // If the message is from the bot, there's no need to run the rest of these conditionals
 
     // If the message is a command
-    console.log(content.indexOf(prefix));
     if(content.indexOf(prefix) == 0) {
 
         // Split the command for args
         const args = content.slice(prefix).trim().split(/ +/g);
 
-        console.log(args);
+        
 
         // Get the first object, set it to lower case
         const command = args[0];
 
 
         if(command === `${prefix}ping`) {
-            const object = await message.channel.send("Calculating");
-            await message.channel.send(embeds.embed("Pong.", `Response latency is ${object.createdTimestamp - message.createdTimestamp}ms.`));
-            (await object).delete();
-            return;
+
+            ping.ping(message);
+
         }
 
         if(command === `${prefix}clear`) {
-            if(!args[1]) return await message.channel.send(embeds.embed("Invalid Arguments", `Usage:\n ${prefix}clear <messages-to-clear>`));
-            
-            let converted = parseInt(args[1]);
 
-            if(isNaN(converted)) return await message.channel.send(embeds.embed("Improper Argument Passed", "The argument passed was invalid."));
+            clear.clear(message, args);
 
-            if(converted > 100) return await message.channel.send(embeds.embed("Parameter too large", "This command only allows you to bulk delete 100 messages at a time."));
+        }
 
-            let mod = message.guild.roles.cache.find(role => role.name === "Mod");
+        if(command === `${prefix}github`) {
 
-            if(message.member.hasPermission("ADMINISTRATOR")) {
-
-                handleClear(message, converted);
-
-            } else if(message.member.roles.has(mod)) {
-
-                handlerClear(message,converted);
-            }
+            github.github(message);
 
         }
  
@@ -160,13 +151,6 @@ client.on("message", async (message) => {
 
 });
 
-handleClear = async (message, deletion) => {
 
-
-    await message.channel.bulkDelete(deletion);
-
-    await message.channel.send(embeds.embed("Completed", `The bot has deleted ${deletion} messages.`));
-
-}
 
 client.login(token);
