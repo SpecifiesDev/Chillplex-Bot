@@ -6,6 +6,7 @@ const fs = require("fs");
 const ping = require("./commands/ping");
 const clear = require("./commands/clear");
 const github = require('./commands/github');
+const togglenotifs = require("./commands/togglenotifs");
 
 const client = new discord.Client();
 
@@ -59,6 +60,13 @@ client.on("message", async (message) => {
 
             github.github(message);
 
+        }
+
+        if(command === `${prefix}togglenotifs`) {
+            
+            togglenotifs.togglenotifs(message);
+
+            
         }
  
 
