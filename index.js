@@ -7,6 +7,8 @@ const ping = require("./commands/ping");
 const clear = require("./commands/clear");
 const github = require('./commands/github');
 const togglenotifs = require("./commands/togglenotifs");
+const setlevel = require('./commands/setlevel');
+const help = require("./commands/help");
 
 const client = new discord.Client();
 
@@ -52,21 +54,27 @@ client.on("message", async (message) => {
 
         if(command === `${prefix}clear`) {
 
-            clear.clear(message, args);
+            clear.clear(message, args, prefix);
 
         }
 
         if(command === `${prefix}github`) {
 
             github.github(message);
-
         }
 
         if(command === `${prefix}togglenotifs`) {
             
             togglenotifs.togglenotifs(message);
+   
+        }
 
-            
+        if(command === `${prefix}setlevel`) {
+            setlevel.setlevel(message, args, prefix);
+        }
+
+        if(command === `${prefix}help`) {
+            help.help(message, args);
         }
  
 
@@ -160,5 +168,6 @@ client.on("message", async (message) => {
 });
 
 
+module.exports = { prefix: prefix };
 
 client.login(token);

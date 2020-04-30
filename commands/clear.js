@@ -1,7 +1,10 @@
 
 const embeds = require('../embeds');
+const main = require("../index");
 
-const clear = async (message, args) => {
+
+
+const clear = async (message, args, prefix) => {
     if(!args[1]) return await message.channel.send(embeds.embed("Invalid Arguments", `Usage:\n ${prefix}clear <messages-to-clear>`));
             
     let converted = parseInt(args[1]);
@@ -12,24 +15,20 @@ const clear = async (message, args) => {
 
     let mod = message.guild.roles.cache.find(role => role.name === "Mod");
 
-    if(message.member.hasPermission("ADMINISTRATOR")) {
+    if(message.member.hasPermission("ADMINISTRATOR") || message.member.roles.has(mod)) {
 
-        handleClear(message, converted);
+        await message.channel.bulkDelete(converted);
 
-    } else if(message.member.roles.has(mod)) {
+        await message.channel.send(embeds.embed("Completed", `The bot has deleted ${converted} messages.`));
 
-        handlerClear(message,converted);
-    }
+    } 
+}
+
+const getHelp = () => {
+    return `Usage: ~clear <amount> \nDescription: Command to clear a specified amount of messages. \nParameters: [amount] Amount of messages to delete.\n`;
 }
 
 
-const handleClear = async (message, deletion) => {
 
 
-    await message.channel.bulkDelete(deletion);
-
-    await message.channel.send(embeds.embed("Completed", `The bot has deleted ${deletion} messages.`));
-
-}
-
-module.exports = { clear: clear };
+module.exports = { clear: clear, getHelp: getHelp };
