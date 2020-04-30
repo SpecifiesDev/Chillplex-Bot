@@ -22,7 +22,7 @@ const help = async (message, args) => {
         }
 
         
-        message.member.createDM();
+        
         for(index in build) {
             let object = build[index];
             await message.member.send(object);
@@ -34,7 +34,7 @@ const help = async (message, args) => {
 
         if(object == undefined) return await message.channel.send(embeds.embed("Error", `The command "${args[1]}" doesn't exist.`));
 
-        message.member.createDM();
+        
 
         await message.member.send(embeds.embed(`Command: ${args[1]}`, object.getHelp()));
         await message.channel.send(embeds.embed("Help sent", "Please check your dms."));

@@ -1,6 +1,6 @@
 
 const embeds = require('../embeds');
-const main = require("../index");
+
 
 
 
