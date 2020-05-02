@@ -35,8 +35,10 @@ const setlevel = async (message, args, prefix) => {
         // Query the API server for the player's level
         let levelQuery = await axios.get(`${baseAPI}/utilities/calculation/level/${xpQuery.data.expearned.split(",").join("")}`);
 
-        // The API returns a level one above the actual leve, so subtract 1
-        let level = levelQuery.data.level - 1;
+        
+        let level = levelQuery.data.level;
+
+        if(!level == 0 && !level == 1) level--;
 
         if(level >= 40 && level < 60) {
 

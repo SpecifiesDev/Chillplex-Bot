@@ -7,6 +7,8 @@ commands.set("setlevel", require("./setlevel"));
 commands.set("togglenotifs", require("./togglenotifs"));
 commands.set("clear", require("./clear"));
 commands.set("github", require("./github"));
+commands.set("addrole", require("./addrole"));
+commands.set("removerole", require("./removerole"));
 
 
 const help = async (message, args) => {

@@ -9,6 +9,8 @@ const github = require('./commands/github');
 const togglenotifs = require("./commands/togglenotifs");
 const setlevel = require('./commands/setlevel');
 const help = require("./commands/help");
+const addrole = require('./commands/addrole');
+const removerole = require('./commands/removerole');
 
 const client = new discord.Client();
 
@@ -24,7 +26,7 @@ const token = "";
 
 client.on("ready", () => {
     console.log("Bot ready to serve");
-    client.user.setActivity(`Serving commands with ${prefix}`);
+    client.user.setActivity(`${prefix}help <command>`);
 });
 
 client.on("message", async (message) => {
@@ -46,36 +48,21 @@ client.on("message", async (message) => {
         const command = args[0];
 
 
-        if(command === `${prefix}ping`) {
+        if(command === `${prefix}ping`) ping.ping(message);
 
-            ping.ping(message);
+        if(command === `${prefix}clear`) clear.clear(message, args, prefix);
 
-        }
-
-        if(command === `${prefix}clear`) {
-
-            clear.clear(message, args, prefix);
-
-        }
-
-        if(command === `${prefix}github`) {
-
-            github.github(message);
-        }
-
-        if(command === `${prefix}togglenotifs`) {
-            
-            togglenotifs.togglenotifs(message);
-   
-        }
-
-        if(command === `${prefix}setlevel`) {
-            setlevel.setlevel(message, args, prefix);
-        }
-
-        if(command === `${prefix}help`) {
-            help.help(message, args);
-        }
+        if(command === `${prefix}github`) github.github(message);
+        
+        if(command === `${prefix}togglenotifs`) togglenotifs.togglenotifs(message);
+        
+        if(command === `${prefix}setlevel`) setlevel.setlevel(message, args, prefix);
+        
+        if(command === `${prefix}addrole`) addrole.addrole(message, args, prefix);
+        
+        if(command === `${prefix}removerole`) removerole.removerole(message, args, prefix);
+        
+        if(command === `${prefix}help`) help.help(message, args);
  
 
 
