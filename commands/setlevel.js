@@ -38,7 +38,7 @@ const setlevel = async (message, args, prefix) => {
         
         let level = levelQuery.data.level;
 
-        if(!level == 0 && !level == 1) level--;
+        if(!(level == 0) && !(level == 1)) level--;
 
         if(level >= 40 && level < 60) {
 
