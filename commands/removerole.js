@@ -1,10 +1,13 @@
 const embeds = require("../embeds");
 
-const removerole = (message, args, prefix) => {
+const removerole = async (message, args, prefix) => {
 
     if(!args[1] || !args[2]) return await message.channel.send(embeds.embed("Invalid Arguments", `Usage:\n ${prefix}removerole <tag> <role>`));
 
     let role = message.guild.roles.cache.find(role => role.name === args[2]);
+
+    let mod = message.guild.roles.cache.find(role => role.name === "Mod");
+    if(!(message.member.hasPermission("ADMINISTRATOR") || message.member.roles.has(mod))) return await message.channel.send(embeds.embed("Invalid Permission", "You must be a mod+ to use this command."));
 
     if(!role) return await message.channel.send(embeds.embed("Error", `The role "${args[2]}" does not exist.`));
 
